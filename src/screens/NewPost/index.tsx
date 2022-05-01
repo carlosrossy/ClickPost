@@ -29,18 +29,11 @@ export function NewPost(){
                 <Title>Título</Title>
                 <Input 
                 placeholder="Digite o título do post"
-                placeholderTextColor={theme.colors.primary}
+                placeholderTextColor={theme.colors.user}
                 
                 onChangeText={setTitle}
                 />
 
-                <Title>Usuário</Title>
-                <Input 
-                placeholder="Digite o seu Nome de Usuário"
-                placeholderTextColor={theme.colors.primary}
-                
-                onChangeText={setTitle}
-                />
 
                 <Title>Conteúdo</Title>
                 <AreaText>
@@ -63,7 +56,7 @@ export function NewPost(){
                </ViewWarning>
                 
                <ContainerButton>
-                    <Button title="Postar" />
+                    <Button title="Postar"/>
                 </ContainerButton>
 
             </Main>

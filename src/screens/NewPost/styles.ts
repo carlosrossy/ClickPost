@@ -6,7 +6,17 @@ export const Container = styled.View`
     background-color: ${({theme}) => theme.colors.background};
 `;
 
-export const Main = styled.View``;
+export const Main = styled.ScrollView`
+    margin-top: -50px;
+    margin-left: 25px;
+    margin-right: 25px;
+    padding-top: 38px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+
+    background-color: ${({ theme }) => theme.colors.white};
+`;
 
 export const Title = styled.Text`
     font-size: ${RFValue(13)}px;
