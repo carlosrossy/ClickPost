@@ -1,41 +1,38 @@
 import React, {useEffect,useState} from 'react';
-import { ActivityIndicator, FlatList, Text} from 'react-native';
+import {FlatList, Text} from 'react-native';
 
 import HeaderPages from '../../components/HeaderPages';
 import { Load } from '../../components/Load';
 import api from '../../services/api';
+import { PostDTO } from '../../dtos/postDTO';
 
 import { Container } from './style';
 
-export interface IProsPost{
-    body: string;
-    id: number;
-    title: string;
-    userId: number;
-}
 export function Home (){
-    const [load, setload] = useState(false)
-    const [post,setPost] = useState<IProsPost[]>([])
+    const [loading, setloading] = useState(false)
+    const [post,setPost] = useState<PostDTO[]>([])
     useEffect(() => {
         
         getPost()
     }, [])
     async function getPost () {
         try {
-            setload(true) 
+            setloading(true) 
             const response = await api.get('/posts')
             setPost(response.data)
         } catch (error) {
             
-            console.log('erro ao buscar os posts')
+            console.log(error)
 
-        }finally{setload(false)}
+        }finally{
+            setloading(false)
+        }
     }
     return(
 
         <Container>
             <HeaderPages title='Post'/>
-            {load ? <Load/>:
+            { loading ? <Load/>:
                 <FlatList
                     data = {post}
                     keyExtractor = {(item) => String(item.id)}
