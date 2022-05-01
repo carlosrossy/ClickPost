@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import {FlatList} from 'react-native';
+
 
 import HeaderPages from '../../components/HeaderPages';
 import Post from '../../components/Post';
@@ -9,13 +9,15 @@ import { PostDTO } from '../../dtos/postDTO';
 
 import { 
     Container,
-    Main
+    Main,
 } from './style';
+import { FlatList } from 'react-native';
 
 
 export function Home (){
     const [loading, setloading] = useState(false)
     const [post,setPost] = useState<PostDTO[]>([])
+    
     useEffect(() => {
         
         getPost()
@@ -42,6 +44,8 @@ export function Home (){
                 { loading ? <Load/> :
 
                  <FlatList
+                    contentContainerStyle={{padding: 24}}
+                    showsVerticalScrollIndicator= {false}
                     data = {post}
                     keyExtractor = {(item) => String(item.id)}
                     renderItem = {({ item }) =>
