@@ -3,15 +3,16 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
     width: 100%;
-    height: ${RFValue(200)}px;
+    height: ${RFValue(190)}px;
     background-color: ${({ theme }) => theme.colors.primary};
-
-    justify-content: flex-end;
+    padding: 25px;
+    
 `;
 
 export const Title = styled.Text`
     font-size: ${RFValue(30)}px;
     font-family: ${({theme})=> theme.fonts.semiBold};
-    text-align: center;
+    margin-top: 60px;
+    flex-wrap: wrap;
     color: ${({theme})=> theme.colors.white};
 `;
