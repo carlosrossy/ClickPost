@@ -16,6 +16,7 @@ import {
 } from './styles'
 
 import theme from '../../global/style/theme';
+import { ScrollView } from 'react-native';
 
 export function NewPost(){
     const[title, setTitle] = useState('')
@@ -23,9 +24,12 @@ export function NewPost(){
 
     return(
         <Container>
+            <ScrollView showsHorizontalScrollIndicator = {true}>
             <HeaderPages title='Novo Post'/>
 
             <Main>
+                
+
                 <Title>Título</Title>
                 <Input 
                 placeholder="Digite o título do post"
@@ -34,6 +38,13 @@ export function NewPost(){
                 onChangeText={setTitle}
                 />
 
+                <Title>UserName</Title>
+                <Input 
+                placeholder="Digite o seu nome de usuario"
+                placeholderTextColor={theme.colors.user}
+                
+                onChangeText={setTitle}
+                />
 
                 <Title>Conteúdo</Title>
                 <AreaText>
@@ -59,7 +70,8 @@ export function NewPost(){
                     <Button title="Postar"/>
                 </ContainerButton>
 
-            </Main>
+            </Main> 
+            </ScrollView>
         </Container>
     )
 }

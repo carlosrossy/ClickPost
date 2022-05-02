@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
 import { PostDTO } from '../../dtos/postDTO';
@@ -16,13 +17,21 @@ interface Props {
 }
 
 export default function Post({data}: Props){
+
+    const navigation = useNavigation()
+
+    function handlerInformation (){
+        navigation.navigate('InformationUser' ,{
+            id:data.userId
+        })
+    }
     return (
 
         <Container>
             <Header>
                 <Title>{data.title}</Title>
 
-                <NameButton>
+                <NameButton onPress={handlerInformation} >
                     <Name>Carlos</Name>
                 </NameButton>
             </Header>

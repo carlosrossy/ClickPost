@@ -6,10 +6,9 @@ export const Container = styled.View`
     background-color: ${({theme}) => theme.colors.background};
 `;
 
-export const Main = styled.ScrollView`
+export const Main = styled.View`
+    padding-bottom: 25px;
     margin-top: -50px;
-    margin-left: 25px;
-    margin-right: 25px;
     padding-top: 38px;
     padding-left: 25px;
     padding-right: 25px;

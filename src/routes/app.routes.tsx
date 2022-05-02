@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Home } from '../screens/Home';
 import {NewPost} from '../screens/NewPost';
@@ -7,6 +8,7 @@ import {NewPost} from '../screens/NewPost';
 import HomeSvg from '../assets/menu/Home.svg'
 import AddPost from '../assets/menu/AddPost.svg'
 import ListSvg from '../assets/menu/List.svg'
+import InformationUser from '../screens/InformationUser';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +19,7 @@ export default function Routes() {
             screenOptions={{
                 headerShown: false,
                 tabBarShowLabel: false,
+                tabBarHideOnKeyboard: true,
                 tabBarStyle:{
                     height: 72,
                     backgroundColor: '#ffff',
@@ -28,7 +31,7 @@ export default function Routes() {
 
             }}
       >
-        <Tab.Screen name="Home" component={Home} 
+        <Tab.Screen name="Home" component={StackApp} 
             options = {{
                 tabBarIcon: ({focused }) =>
                 (
@@ -45,5 +48,21 @@ export default function Routes() {
                 }}
         />
       </Tab.Navigator>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function StackApp() {
+  return (
+   
+      <Stack.Navigator screenOptions={{
+            headerShown: false,
+            
+      }}>
+        <Stack.Screen name="HomeScreen" component={Home} />
+        <Stack.Screen name="InformationUser" component={InformationUser} />
+      </Stack.Navigator>
+      
   );
 }

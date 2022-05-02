@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import HeaderPages from '../../components/HeaderPages';
 import { Button } from '../../components/Button';
+import { UserDTO } from '../../dtos/UserDTO';
+
+import { useRoute } from '@react-navigation/native';
 
 import {
     Container,
@@ -12,51 +15,103 @@ import {
     CatchPhrase,
     ContainerButton
 } from './styles'
+import api from '../../services/api';
+import { Load } from '../../components/Load';
 
+interface Props {
+    id:number;
+}
 
 
 export default function InformationUser(){
+
+    const routes = useRoute()
+    const {id} = routes.params as Props
+    const [load, setload] = useState(false)
+    const [User,setUser] = useState<UserDTO>({} as UserDTO)
+
+
+    useEffect(() => {
+
+        handlerUserInformation()
+    },[id])
+
+    useEffect(() =>{
+
+        console.log(User)
+    },[User])
+    async function handlerUserInformation(){
+        try {
+            setload(true)
+            const response =  await api.get(`/users/${id}`)
+            setUser(response.data)
+        } catch (error) {
+            
+            console.log(error)
+        }finally{
+            setload(false)
+        }
+    }
 
     return (
         <Container>
            <HeaderPages title="Informações do usuário" />
 
-           <Main>
+           <Main >
+               { load ? <Load/> 
+               : 
+               <>
+               {
+                   User.name !== undefined &&
+                    <>
+
                 <ContainerUser>
                     <Title>Nome</Title>
-                    <Content>Carlos Eduardo</Content>
+                    <Content>{User.name}</Content>
                 </ContainerUser>
+
 
                 <ContainerUser>
                     <Title>Username</Title>
-                    <Content>Eduardo</Content>
+                    <Content>{User.username}</Content>
                 </ContainerUser>
+
 
                 <ContainerUser>
                     <Title>Email</Title>
-                    <Content>incere@april.biz</Content>
+                    <Content>{User.email}</Content>
                 </ContainerUser>
+
 
                 <ContainerUser>
                     <Title>Endereço</Title>
-                    <Content>Rua: Kulas Light, apto 556, Gwenborough - AM, 92998-3873</Content>
+                    <Content>{User.address.street}</Content>
                 </ContainerUser>
+
 
                 <ContainerUser>
                     <Title>Telefone</Title>
-                    <Content>-770-736-8031 x56442</Content>
+                    <Content>{User.phone}</Content>
                 </ContainerUser>
+
 
                 <ContainerUser>
                     <Title>Website</Title>
-                    <Content>hildegard.org</Content>
+                    <Content>{User.website}</Content>
                 </ContainerUser>
+
 
                 <ContainerUser>
                     <Title>Empresa</Title>
-                    <Content>Romaguera-Cron</Content>
-                    <CatchPhrase>Multi-layred client-server</CatchPhrase>
+                    <Content>{User.company.name}</Content>
+                    <CatchPhrase>{User.company.catchPhrase}</CatchPhrase>
                 </ContainerUser>
+
+                </>
+               }
+               </>
+               }
+                
            </Main>
 
             <ContainerButton>
