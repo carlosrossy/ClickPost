@@ -40,6 +40,8 @@ export default function InformationUser(){
 
         console.log(User)
     },[User])
+
+    
     async function handlerUserInformation(){
         try {
             setload(true)

@@ -41,8 +41,8 @@ export const CatchPhrase = styled.Text `
 `
 
 export const ContainerButton = styled.View `
-    margin-top: 30px;
-    margin-bottom: ${getBottomSpace() + RFValue(34)}px;
+    margin-top: 15px;
+    margin-bottom: ${getBottomSpace() + RFValue(100)}px;
     padding-left: 25px;
     padding-right: 25px;
 ` 

@@ -2,6 +2,10 @@ import React, {useState, useEffect} from 'react';
 
 import HeaderPages from '../../components/HeaderPages';
 import { Button } from '../../components/Button';
+import uuid from 'react-native-uuid';
+import {usePostStorage} from '../../hooks/post'
+
+import  AsyncStorage  from '@react-native-async-storage/async-storage';
 
 import {
     Container,
@@ -18,9 +22,36 @@ import {
 import theme from '../../global/style/theme';
 import { ScrollView } from 'react-native';
 
+export interface PropsNewPost {
+    id: string;
+    title:string;
+    username:string;
+    content:string;
+}
+
 export function NewPost(){
     const[title, setTitle] = useState('')
     const[content, setContent] = useState('')
+    const[username, setuserName] = useState('')
+
+    const {newPostStorage} = usePostStorage()
+
+   async function handleNewPost(){
+        const id = uuid.v4()
+
+        const newData = {
+            id,
+            title,
+            username,
+            content,
+        }
+
+        newPostStorage(newData)
+        setTitle('')
+        setContent('')
+        setuserName('')
+        console.log(newData)
+    }
 
     return(
         <Container>
@@ -36,6 +67,7 @@ export function NewPost(){
                 placeholderTextColor={theme.colors.user}
                 
                 onChangeText={setTitle}
+                value={title}
                 />
 
                 <Title>UserName</Title>
@@ -43,7 +75,8 @@ export function NewPost(){
                 placeholder="Digite o seu nome de usuario"
                 placeholderTextColor={theme.colors.user}
                 
-                onChangeText={setTitle}
+                onChangeText={setuserName}
+                value={username}
                 />
 
                 <Title>Conteúdo</Title>
@@ -55,7 +88,7 @@ export function NewPost(){
                         autoCorrect={false}
 
                         onChangeText={setContent}
-
+                        value={content}
                     />
                </AreaText>
 
@@ -67,7 +100,7 @@ export function NewPost(){
                </ViewWarning>
                 
                <ContainerButton>
-                    <Button title="Postar"/>
+                    <Button title="Postar" onPress={handleNewPost}/>
                 </ContainerButton>
 
             </Main> 

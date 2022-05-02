@@ -12,7 +12,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
     font-size: ${RFValue(30)}px;
     font-family: ${({theme})=> theme.fonts.semiBold};
-    margin-top: 60px;
+    margin-top: 40px;
     flex-wrap: wrap;
     color: ${({theme})=> theme.colors.white};
 `;

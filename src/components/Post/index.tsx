@@ -32,7 +32,7 @@ export default function Post({data}: Props){
                 <Title>{data.title}</Title>
 
                 <NameButton onPress={handlerInformation} >
-                    <Name>Carlos</Name>
+                    <Name>carlos</Name>
                 </NameButton>
             </Header>
             
