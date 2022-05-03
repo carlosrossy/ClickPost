@@ -2,6 +2,7 @@ import React from 'react';
 import { ModalProps } from 'react-native';
 
 import CancelSvg from '../../assets/CancelSvg.svg'
+import { ButtonModalDelete } from '../ButtonDeletModal';
 
 import {
     Container,
@@ -48,7 +49,14 @@ export default function ModalConfirmationPost({onClose, ...rest} : Props){
                 </Background>
 
                 <ContainerButton >
-                      
+                      <ButtonModalDelete 
+                            title='sim'
+                      />
+                       <ButtonModalDelete
+                            active
+                            title='sim'
+                            onPress={onClose}
+                      />
                     
                 </ContainerButton>
             </Main>
