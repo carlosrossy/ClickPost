@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  api  from '../services/api';
 import { PostDTO } from '../dtos/postDTO';
 import { PropsNewPost } from '../screens/NewPost';
-import ModalConfirmationPost from '../components/ModalConfirmationPost';
+
 
 type PostContextData = {
     loadingPostCrate: boolean;
@@ -19,9 +19,8 @@ type PostContextData = {
     loadingSearchPostStorage: boolean;
 
     newPostStorage: (data: PropsNewPost) => void;
-    loadStoragePostPost: () => Promise<void>;
     newPost: PropsNewPost[];
-
+    SearchPost: () => Promise<void>;
     removePostUser: (item: any) => void;
 
 }
@@ -43,10 +42,9 @@ function PostProvider({ children }: PostProviderProps){
     
     const CHAVE_STORAGE_POSTS = '@clickpost:postCreated';
 
-    useEffect(() => {
-        loadStoragePostPost();
-    }, []);
-
+    useEffect(()=>{
+        SearchPost() 
+    },[])
 
     async function newPostStorage(data: PropsNewPost){
         setLoadingPostCreate(true);
@@ -61,10 +59,7 @@ function PostProvider({ children }: PostProviderProps){
         }).then(() => {
 
             
-            const storagePost = [
-               ...newPost,
-               data
-            ]
+            const storagePost = [...newPost, data]
             
             setNewPost(storagePost);
             AsyncStorage.setItem(CHAVE_STORAGE_POSTS, JSON.stringify(storagePost));
@@ -80,17 +75,6 @@ function PostProvider({ children }: PostProviderProps){
         setLoadingPostCreate(false);
     }
 
-    async function loadStoragePostPost(){
-        const storage = await AsyncStorage.getItem(CHAVE_STORAGE_POSTS);
-
-        if(storage){
-            const data = await JSON.parse(storage);
-            setNewPost(data);
-        }
-       
-        
-        setLoadingSearchPostStorage(false);
-    }
 
     async function removePostUser(item: PostDTO) {
         setLoadingRemovePost(true);
@@ -102,6 +86,14 @@ function PostProvider({ children }: PostProviderProps){
        // setLoadingRemovePost(false);
     }
 
+    async function SearchPost(){
+        const response = await AsyncStorage.getItem(CHAVE_STORAGE_POSTS)
+        if(response){
+            const data = await JSON.parse(response);
+            setNewPost(data);
+        }
+
+    }
     
 
     return (
@@ -111,9 +103,8 @@ function PostProvider({ children }: PostProviderProps){
             loadingRemovePost,
             loadingSearchPostStorage,
 
-
-            loadStoragePostPost,
-
+            newPost,
+            SearchPost,
             newPostStorage,
             removePostUser,
         }}>

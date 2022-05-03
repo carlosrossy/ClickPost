@@ -4,6 +4,7 @@ import HeaderPages from '../../components/HeaderPages';
 import { Button } from '../../components/Button';
 import uuid from 'react-native-uuid';
 import ModalConfirmationPost from '../../components/ModalConfirmationPost';
+import { useNavigation } from '@react-navigation/native';
 
 import {usePostStorage} from '../../hooks/post'
 
@@ -21,7 +22,6 @@ import {
 
 import theme from '../../global/style/theme';
 import { ScrollView } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface PropsNewPost {
     id: string;
@@ -37,6 +37,8 @@ export function NewPost(){
 
     const [openModalConfirmationPost, setOpenModalConfirmationPost] = useState(false);
 
+    const navigator = useNavigation();
+
     const {newPostStorage} = usePostStorage()
 
    async function handleNewPost(){
@@ -49,13 +51,17 @@ export function NewPost(){
             content,
         }
 
-    
-
         newPostStorage(newData)
         setTitle('')
         setContent('')
         setuserName('')
         console.log(newData)
+        setOpenModalConfirmationPost(true)
+    }
+
+    function CloseMOdal (){
+        setOpenModalConfirmationPost(false)
+        navigator.navigate("UserPost")
     }
 
     return(
@@ -110,6 +116,8 @@ export function NewPost(){
 
             </Main> 
             </ScrollView>
+
+            <ModalConfirmationPost onClose={CloseMOdal} visible = {openModalConfirmationPost}/>
         </Container>
     )
 }

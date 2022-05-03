@@ -25,7 +25,7 @@ export function Home (){
     async function getPost () {
         try {
             setloading(true) 
-            const response = await api.get('/posts')
+            const response = await api.get(`/posts`)
             setPost(response.data)
         } catch (error) {
             
@@ -50,7 +50,7 @@ export function Home (){
                     keyExtractor = {(item) => String(item.id)}
                     renderItem = {({ item }) =>
                     
-                    <Post data={item}/>
+                    <Post typePage='home' data={item}/>
             
                     }
                 />

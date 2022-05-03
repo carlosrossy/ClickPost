@@ -1,7 +1,7 @@
 import React from 'react';
 import { ModalProps } from 'react-native';
 
-import ConfirmSvg from  '../../assets/Confirm.svg'
+import ConfirmSvg from '../../assets/ConfirmSvg.svg'
 
 import {
     Container,
@@ -13,19 +13,17 @@ import {
     Text,
 } from './styles'
 
-type Props = ModalProps & {
-    visible: boolean;
+interface Props extends ModalProps {
     onClose: () => void;
 }
 
-export default function ModalConfirmationPost({visible,onClose, ...rest} : Props){
+export default function ModalConfirmationPost({onClose, ...rest} : Props){
     return(
         <Container
         transparent
         animationType="fade"
         statusBarTranslucent
         {...rest}
-        visible={visible}
         >
    <Main>
        <Background>

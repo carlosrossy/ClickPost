@@ -11,25 +11,28 @@ import {
     Name,
     Content,
 } from './styles'
+import { PropsNewPost } from '../../screens/NewPost';
 
 interface Props {
-    data: PostDTO;
+    data?: PostDTO;
+    dataPostUser? :PropsNewPost;
+    typePage:'home' | 'postUser'
 }
 
-export default function Post({data}: Props){
+export default function Post({data, dataPostUser,typePage}: Props){
 
     const navigation = useNavigation()
 
     function handlerInformation (){
         navigation.navigate('InformationUser' ,{
-            id:data.userId
+            id:data?.userId
         })
     }
     return (
 
         <Container>
             <Header>
-                <Title>{data.title}</Title>
+                <Title>{typePage === 'home' ? data?.title : dataPostUser?.title}</Title>
 
                 <NameButton onPress={handlerInformation} >
                     <Name>carlos</Name>
@@ -37,7 +40,7 @@ export default function Post({data}: Props){
             </Header>
             
             <Content>
-                {data.body}
+                {typePage === 'home' ? data?.body : dataPostUser?.content}
             </Content>
         </Container>
     )
