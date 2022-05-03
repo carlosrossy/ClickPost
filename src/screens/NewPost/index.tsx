@@ -24,7 +24,7 @@ import theme from '../../global/style/theme';
 import { ScrollView } from 'react-native';
 
 export interface PropsNewPost {
-    id: string;
+    id: number;
     title:string;
     username:string;
     content:string;
@@ -42,7 +42,7 @@ export function NewPost(){
     const {newPostStorage} = usePostStorage()
 
    async function handleNewPost(){
-        const id = uuid.v4()
+        const id = Math.floor(Math.random() * (10 - 1 + 1) + 1);
 
         const newData = {
             id,
@@ -81,14 +81,6 @@ export function NewPost(){
                 value={title}
                 />
 
-                <Title>UserName</Title>
-                <Input 
-                placeholder="Digite o seu nome de usuario"
-                placeholderTextColor={theme.colors.user}
-                
-                onChangeText={setuserName}
-                value={username}
-                />
 
                 <Title>Conteúdo</Title>
                 <AreaText>

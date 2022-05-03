@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  api  from '../services/api';
 import { PostDTO } from '../dtos/postDTO';
 import { PropsNewPost } from '../screens/NewPost';
+import { UserDTO } from '../dtos/UserDTO';
 
 
 type PostContextData = {
@@ -78,12 +79,12 @@ function PostProvider({ children }: PostProviderProps){
 
     async function removePostUser(item: PostDTO) {
         setLoadingRemovePost(true);
-        //const removeItem = newPost.filter(
-           // itemPost => itemPost.id !== item.id
-       // )
-        //setNewPost(removeItem);
-        //await AsyncStorage.setItem(CHAVE_STORAGE_POSTS, JSON.stringify(removeItem));
-       // setLoadingRemovePost(false);
+        const removeItem = newPost.filter(
+            itemPost => itemPost.id !== item.id
+        )
+        setNewPost(removeItem);
+        await AsyncStorage.setItem(CHAVE_STORAGE_POSTS, JSON.stringify(removeItem));
+        setLoadingRemovePost(false);
     }
 
     async function SearchPost(){
@@ -98,7 +99,7 @@ function PostProvider({ children }: PostProviderProps){
 
     return (
         <PostContext.Provider value={{
-
+            
             loadingPostCrate,
             loadingRemovePost,
             loadingSearchPostStorage,

@@ -15,6 +15,8 @@ import {
     Icon
 } from './styles'
 import { PropsNewPost } from '../../screens/NewPost';
+import { usePostStorage } from '../../hooks/post';
+import { UserDTO } from '../../dtos/UserDTO';
 
 interface Props {
     data?: PostDTO;
@@ -40,7 +42,9 @@ export default function Post({data, dataPostUser,typePage,active, clean}: Props)
                 <Title>{typePage === 'home' ? data?.title : dataPostUser?.title}</Title>
 
                 <NameButton onPress={handlerInformation} >
-                    <Name>carlos</Name>
+                    <Name>
+                      
+                    </Name>
                 </NameButton>
             </Header>
             

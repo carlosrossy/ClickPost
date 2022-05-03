@@ -22,7 +22,7 @@ interface Props extends ModalProps {
 }
 
 
-export default function ModalDeletPost({onClose, ...rest} : Props){
+export default function ModalDeletPost({onClose,removePost, ...rest} : Props){
     return(
         <Container
             transparent
@@ -51,6 +51,7 @@ export default function ModalDeletPost({onClose, ...rest} : Props){
                      <ContainerButton >
                       <ButtonModalDelete 
                             title='sim'
+                            onPress={removePost}
                       />
                        <ButtonModalDelete
                             active
