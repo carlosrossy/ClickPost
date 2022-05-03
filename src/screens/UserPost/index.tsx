@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import HeaderPages from '../../components/HeaderPages';
 import Post from '../../components/Post';
-import { Load } from '../../components/Load';
 
 import { usePostStorage } from '../../hooks/post';
 
@@ -13,13 +12,28 @@ import {
 
 import { FlatList } from 'react-native';
 import { PropsNewPost } from '../NewPost';
+import ModalDeletPost from '../../components/ModalDeletPost';
 
 export function UserPost(){
     const [loading, setloading] = useState(false)
     const [post,setPost] = useState<PropsNewPost[]>([])
+    const [openModal, setOpenModal] = useState(false)
 
     const {newPost,SearchPost} = usePostStorage()
 
+    function handleCloseModal(){
+        setOpenModal(false);
+    }
+
+    function deletePost(){
+        setOpenModal(false)
+       
+    }
+
+
+    function handleRemovePost(){
+        setOpenModal(true);
+    }
 
     useEffect(() => {
         setloading(true)
@@ -45,12 +59,23 @@ export function UserPost(){
                     keyExtractor = {(item) => String(item.id)}
                     renderItem = {({ item }) =>
                     
-                    <Post typePage='postUser' dataPostUser={item}/>
+                    <Post
+                        active
+                        clean={() => handleRemovePost()}
+                        typePage='postUser' 
+                        dataPostUser={item}
+                     />
 
                     }
                     />
                     }
             </Main>
+
+            <ModalDeletPost 
+                visible={openModal} 
+                onClose={handleCloseModal}
+                removePost={deletePost}
+            />
         </Container>
     )
 

@@ -26,7 +26,7 @@ export const Background = styled.View `
 export const Header = styled.View `
     width: 100%;
     align-items: flex-end;
-    margin-bottom: -20px;
+    margin-bottom: 40px;
 `;
 
 export const ButtonClose = styled.TouchableOpacity `

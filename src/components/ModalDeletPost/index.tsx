@@ -18,10 +18,11 @@ import {
 
 interface Props extends ModalProps {
     onClose: () => void;
+    removePost: () => void;
 }
 
 
-export default function ModalConfirmationPost({onClose, ...rest} : Props){
+export default function ModalDeletPost({onClose, ...rest} : Props){
     return(
         <Container
             transparent
@@ -37,28 +38,29 @@ export default function ModalConfirmationPost({onClose, ...rest} : Props){
                         </ButtonClose>
                     </Header>
             
-            <CancelSvg 
-                width={200}
-                height={150}
-            />
+                    <CancelSvg 
+                    width={200}
+                    height={150}
+                    />
 
-                <Text>
+                    <Text>
                     Você tem certeza que deseja {`\n`}
                     excluir esse post?
-                </Text>
-                </Background>
+                     </Text>
 
-                <ContainerButton >
+                     <ContainerButton >
                       <ButtonModalDelete 
                             title='sim'
                       />
                        <ButtonModalDelete
                             active
-                            title='sim'
+                            title='não'
                             onPress={onClose}
                       />
                     
                 </ContainerButton>
+                </Background>
+                
             </Main>
         </Container>
     )

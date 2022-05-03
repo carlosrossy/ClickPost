@@ -10,16 +10,21 @@ import {
     NameButton,
     Name,
     Content,
+    Footer,
+    ButtonActionClean,
+    Icon
 } from './styles'
 import { PropsNewPost } from '../../screens/NewPost';
 
 interface Props {
     data?: PostDTO;
     dataPostUser? :PropsNewPost;
-    typePage:'home' | 'postUser'
+    typePage:'home' | 'postUser';
+    active?: boolean;
+    clean?: () => void;
 }
 
-export default function Post({data, dataPostUser,typePage}: Props){
+export default function Post({data, dataPostUser,typePage,active, clean}: Props){
 
     const navigation = useNavigation()
 
@@ -42,6 +47,23 @@ export default function Post({data, dataPostUser,typePage}: Props){
             <Content>
                 {typePage === 'home' ? data?.body : dataPostUser?.content}
             </Content>
+
+            <Footer>
+                {
+                    active &&
+                    <>
+                    <ButtonActionClean 
+                        onPress={clean}
+                        activeOpacity={0.7}
+                    >
+                        <Icon 
+                            name = "trash"
+                        />
+                    
+                    </ButtonActionClean>
+                    </>
+                }
+            </Footer>
         </Container>
     )
 }
