@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Home } from '../screens/Home';
 import {NewPost} from '../screens/NewPost';
+import { UserPost } from '../screens/UserPost';
 
 import HomeSvg from '../assets/menu/Home.svg'
 import AddPost from '../assets/menu/AddPost.svg'
@@ -47,6 +48,14 @@ export default function Routes() {
                     )
                 }}
         />
+        <Tab.Screen name="UserPost" component={UserPost} 
+                 options = {{
+                    tabBarIcon: ({focused }) =>
+                    (
+                       <ListSvg strokeWidth={2.0} stroke={focused ? '#0E1647':'#BABCBF'}/>
+                    )
+                }}
+        />
       </Tab.Navigator>
   );
 }
@@ -62,6 +71,7 @@ function StackApp() {
       }}>
         <Stack.Screen name="HomeScreen" component={Home} />
         <Stack.Screen name="InformationUser" component={InformationUser} />
+        <Stack.Screen name="UserPost" component={UserPost} />
       </Stack.Navigator>
       
   );

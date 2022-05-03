@@ -5,8 +5,6 @@ import { Button } from '../../components/Button';
 import uuid from 'react-native-uuid';
 import {usePostStorage} from '../../hooks/post'
 
-import  AsyncStorage  from '@react-native-async-storage/async-storage';
-
 import {
     Container,
     Main,
@@ -21,6 +19,7 @@ import {
 
 import theme from '../../global/style/theme';
 import { ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface PropsNewPost {
     id: string;
@@ -45,6 +44,8 @@ export function NewPost(){
             username,
             content,
         }
+
+    
 
         newPostStorage(newData)
         setTitle('')
