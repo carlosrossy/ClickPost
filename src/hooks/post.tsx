@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import  api  from '../services/api';
 import { PostDTO } from '../dtos/postDTO';
 import { PropsNewPost } from '../screens/NewPost';
+import ModalConfirmationPost from '../components/ModalConfirmationPost';
 
 type PostContextData = {
     loadingPostCrate: boolean;

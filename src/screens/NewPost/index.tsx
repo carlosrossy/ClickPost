@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import HeaderPages from '../../components/HeaderPages';
 import { Button } from '../../components/Button';
 import uuid from 'react-native-uuid';
+import ModalConfirmationPost from '../../components/ModalConfirmationPost';
+
 import {usePostStorage} from '../../hooks/post'
 
 import {
@@ -32,6 +34,8 @@ export function NewPost(){
     const[title, setTitle] = useState('')
     const[content, setContent] = useState('')
     const[username, setuserName] = useState('')
+
+    const [openModalConfirmationPost, setOpenModalConfirmationPost] = useState(false);
 
     const {newPostStorage} = usePostStorage()
 
@@ -101,7 +105,7 @@ export function NewPost(){
                </ViewWarning>
                 
                <ContainerButton>
-                    <Button title="Postar" onPress={handleNewPost}/>
+                    <Button title="Postar"  onPress={handleNewPost}/>
                 </ContainerButton>
 
             </Main> 
