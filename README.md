@@ -46,7 +46,7 @@ A api disponibilizada para consumo pode ser encontrada [aqui](https://jsonplaceh
 $ git clone https://github.com/carlosrossy/ClickPost.git
 
 # Entre na pasta do projeto.
-$ cd CLICKPOST
+$ cd ClickPost
 
 # Instale as dependências
 $ yarn
