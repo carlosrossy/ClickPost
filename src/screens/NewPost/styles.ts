@@ -7,8 +7,9 @@ export const Container = styled.View`
 `;
 
 export const Main = styled.View`
-    padding-bottom: 25px;
-    margin-top: -50px;
+    padding-bottom: 60px;
+    margin: -50px 24px 0px 24px;
+ 
     padding-top: 38px;
     padding-left: 25px;
     padding-right: 25px;

@@ -42,7 +42,8 @@ export function NewPost(){
     const {newPostStorage} = usePostStorage()
 
    async function handleNewPost(){
-        const id = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+       if(title !== '' && content !== ''){
+           const id = Math.floor(Math.random() * (10 - 1 + 1) + 1);
 
         const newData = {
             id,
@@ -54,9 +55,10 @@ export function NewPost(){
         newPostStorage(newData)
         setTitle('')
         setContent('')
-        setuserName('')
         console.log(newData)
         setOpenModalConfirmationPost(true)
+       }
+        
     }
 
     function CloseMOdal (){
@@ -66,9 +68,9 @@ export function NewPost(){
 
     return(
         <Container>
+           
             <ScrollView showsHorizontalScrollIndicator = {true}>
-            <HeaderPages title='Novo Post'/>
-
+             <HeaderPages title='Novo Post'/>
             <Main>
                 
 

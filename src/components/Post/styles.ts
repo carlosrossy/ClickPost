@@ -48,6 +48,9 @@ export const Footer = styled.View`
 export const ButtonActionClean = styled.TouchableOpacity``;
 
 export const Icon = styled(Feather)`
+    margin-left: 12px;
     font-size: ${RFValue(30)}px;
     color: ${({ theme }) => theme.colors.primary};
 `;
+
+export const ButtonActionUpdate = styled.TouchableOpacity``;

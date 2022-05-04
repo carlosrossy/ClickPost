@@ -38,6 +38,7 @@ function PostProvider({ children }: PostProviderProps){
     const [loadingRemovePost, setLoadingRemovePost] = useState(false);
     const [loadingSearchPostStorage, setLoadingSearchPostStorage] = useState(true);
     const [loadingPostCrate, setLoadingPostCreate] = useState(false);
+
     
     const [newPost, setNewPost] = useState<PropsNewPost[]>([]);
     
@@ -94,6 +95,10 @@ function PostProvider({ children }: PostProviderProps){
             setNewPost(data);
         }
 
+    }
+
+    async function UpdatePost(){
+        
     }
     
 

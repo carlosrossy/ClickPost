@@ -12,11 +12,12 @@ import {
     Content,
     Footer,
     ButtonActionClean,
-    Icon
+    Icon,
+    ButtonActionUpdate,
 } from './styles'
 import { PropsNewPost } from '../../screens/NewPost';
-import { usePostStorage } from '../../hooks/post';
-import { UserDTO } from '../../dtos/UserDTO';
+
+
 
 interface Props {
     data?: PostDTO;
@@ -29,6 +30,7 @@ interface Props {
 export default function Post({data, dataPostUser,typePage,active, clean}: Props){
 
     const navigation = useNavigation()
+
 
     function handlerInformation (){
         navigation.navigate('InformationUser' ,{
@@ -43,7 +45,9 @@ export default function Post({data, dataPostUser,typePage,active, clean}: Props)
 
                 <NameButton onPress={handlerInformation} >
                     <Name>
-                      
+                      {
+                          
+                      }
                     </Name>
                 </NameButton>
             </Header>
@@ -53,6 +57,19 @@ export default function Post({data, dataPostUser,typePage,active, clean}: Props)
             </Content>
 
             <Footer>
+                {
+                    active &&
+                    <>
+                    <ButtonActionUpdate 
+                       
+                        activeOpacity={0.7}
+                    >
+                        <Icon 
+                            name = "edit-3"
+                        />
+                    </ButtonActionUpdate>
+                    </>
+                }
                 {
                     active &&
                     <>
