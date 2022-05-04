@@ -4,7 +4,7 @@ import HeaderPages from '../../components/HeaderPages';
 import { Button } from '../../components/Button';
 import { UserDTO } from '../../dtos/UserDTO';
 
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import {
     Container,
@@ -13,7 +13,6 @@ import {
     Title,
     Content,
     CatchPhrase,
-    ContainerButton
 } from './styles'
 import api from '../../services/api';
 import { Load } from '../../components/Load';
@@ -24,7 +23,7 @@ interface Props {
 
 
 export default function InformationUser(){
-
+    const navigation = useNavigation();
     const routes = useRoute()
     const {id} = routes.params as Props
     const [load, setload] = useState(false)
@@ -55,9 +54,13 @@ export default function InformationUser(){
         }
     }
 
+    function goBackHome(){
+        navigation.goBack();
+    }
+
     return (
         <Container>
-           <HeaderPages title="Informações do usuário" />
+           <HeaderPages active goBack={goBackHome} title="Informações do usuário" />
 
            <Main >
                { load ? <Load/> 
@@ -115,10 +118,6 @@ export default function InformationUser(){
                }
                 
            </Main>
-
-            <ContainerButton>
-                <Button title="Posts do usuário" onPress={() => {}} />
-            </ContainerButton>
 
         </Container>
     )

@@ -13,6 +13,7 @@ export const Main = styled.ScrollView `
     margin-left: 25px;
     margin-right: 25px;
     border-radius: 5px;
+    margin-bottom: 120px;
     background-color: ${({ theme }) => theme.colors.white};
     padding: 17px;
 `;
@@ -40,9 +41,3 @@ export const CatchPhrase = styled.Text `
     color: ${({ theme }) => theme.colors.text};
 `
 
-export const ContainerButton = styled.View `
-    margin-top: 15px;
-    margin-bottom: ${getBottomSpace() + RFValue(100)}px;
-    padding-left: 25px;
-    padding-right: 25px;
-` 

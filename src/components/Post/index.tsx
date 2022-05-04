@@ -16,25 +16,28 @@ import {
     ButtonActionUpdate,
 } from './styles'
 import { PropsNewPost } from '../../screens/NewPost';
+import { UserDTO } from '../../dtos/UserDTO';
+
 
 
 
 interface Props {
     data?: PostDTO;
-    dataPostUser? :PropsNewPost;
-    typePage:'home' | 'postUser';
+    User: UserDTO[];
+    dataPostUser?: PropsNewPost;
+    typePage: 'home' | 'postUser';
     active?: boolean;
     clean?: () => void;
 }
 
-export default function Post({data, dataPostUser,typePage,active, clean}: Props){
+export default function Post({ data, User, dataPostUser, typePage, active, clean }: Props) {
 
     const navigation = useNavigation()
 
 
-    function handlerInformation (){
-        navigation.navigate('InformationUser' ,{
-            id:data?.userId
+    function handlerInformation() {
+        navigation.navigate('InformationUser', {
+            id: data?.userId
         })
     }
     return (
@@ -45,13 +48,17 @@ export default function Post({data, dataPostUser,typePage,active, clean}: Props)
 
                 <NameButton onPress={handlerInformation} >
                     <Name>
-                      {
-                          
-                      }
+                        {
+                            User.map((ItemUser) => {
+                                if (data?.userId === ItemUser.id) {
+                                    return ItemUser.name
+                                }
+                            })
+                        }
                     </Name>
                 </NameButton>
             </Header>
-            
+
             <Content>
                 {typePage === 'home' ? data?.body : dataPostUser?.content}
             </Content>
@@ -60,28 +67,28 @@ export default function Post({data, dataPostUser,typePage,active, clean}: Props)
                 {
                     active &&
                     <>
-                    <ButtonActionUpdate 
-                       
-                        activeOpacity={0.7}
-                    >
-                        <Icon 
-                            name = "edit-3"
-                        />
-                    </ButtonActionUpdate>
+                        <ButtonActionUpdate
+
+                            activeOpacity={0.7}
+                        >
+                            <Icon
+                                name="edit-3"
+                            />
+                        </ButtonActionUpdate>
                     </>
                 }
                 {
                     active &&
                     <>
-                    <ButtonActionClean 
-                        onPress={clean}
-                        activeOpacity={0.7}
-                    >
-                        <Icon 
-                            name = "trash"
-                        />
-                    
-                    </ButtonActionClean>
+                        <ButtonActionClean
+                            onPress={clean}
+                            activeOpacity={0.7}
+                        >
+                            <Icon
+                                name="trash"
+                            />
+
+                        </ButtonActionClean>
                     </>
                 }
             </Footer>

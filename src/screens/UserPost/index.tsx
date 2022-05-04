@@ -6,7 +6,7 @@ import EmptySvg from '../../assets/EmptySvg.svg'
 
 import { usePostStorage } from '../../hooks/post';
 
-import { 
+import {
     Container,
     Main,
     Empty,
@@ -17,26 +17,47 @@ import { FlatList } from 'react-native';
 import { PropsNewPost } from '../NewPost';
 import ModalDeletPost from '../../components/ModalDeletPost';
 import { PostDTO } from '../../dtos/postDTO';
+import api from '../../services/api';
+import { UserDTO } from '../../dtos/UserDTO';
 
-export function UserPost(){
+export function UserPost() {
     const [loading, setloading] = useState(false)
-    const [post,setPost] = useState<PropsNewPost[]>([])
+    const [post, setPost] = useState<PropsNewPost[]>([])
     const [itemDelete, setItemDelete] = useState<PostDTO>({} as PostDTO);
     const [openModal, setOpenModal] = useState(false)
+    const [users, setUsers] = useState<UserDTO[]>([]);
 
-    const {newPost,SearchPost,removePostUser} = usePostStorage()
+    async function getUser() {
+        try {
+            setloading(true)
+            const responseUsers = await api.get('/users');
+            setUsers(responseUsers.data)
+        } catch (error) {
 
-    function handleCloseModal(){
-        setOpenModal(false);
-        
+            console.log(error)
+
+        } finally {
+            setloading(false)
+        }
     }
 
-    function deletePost(){
+    useEffect(() => {
+        getUser()
+    }, [])
+
+    const { newPost, SearchPost, removePostUser } = usePostStorage()
+
+    function handleCloseModal() {
+        setOpenModal(false);
+
+    }
+
+    function deletePost() {
         setOpenModal(false)
         removePostUser(itemDelete)
     }
 
-    function handleRemovePost(item: PostDTO){
+    function handleRemovePost(item: PostDTO) {
         setItemDelete(item);
         setOpenModal(true);
     }
@@ -46,54 +67,56 @@ export function UserPost(){
         setloading(true)
         SearchPost()
         setloading(false)
-    },[])
+    }, [])
 
     useEffect(() => {
         setPost(newPost)
-    },[newPost])
+    }, [newPost])
 
 
-    return(
+    return (
 
         <Container>
-            <HeaderPages title='Posts do Usuário'/>
-                <Main>
-                    { post.length === 0 ?
-                        <Empty>
-                            <EmptySvg
+            <HeaderPages title='Posts do Usuário' />
+            <Main>
+                {post.length === 0 ?
+                    <Empty>
+                        <EmptySvg
                             width={279}
                             height={218}
-                            />
+                        />
 
-                            <TextEnpty>
-                                Você ainda não fez nenhum {'\n'}
-                                post ou excluiu todos!
-                            </TextEnpty>
-                        </Empty>
+                        <TextEnpty>
+                            Você ainda não fez nenhum {'\n'}
+                            post ou excluiu todos!
+                        </TextEnpty>
+                    </Empty>
 
                     :
-                    
-                    <FlatList
-                    contentContainerStyle={{padding: 24}}
-                    showsVerticalScrollIndicator= {false}
-                    data = {post}
-                    keyExtractor = {(item) => String(item.id)}
-                    renderItem = {({ item }) =>
-                    
-                    <Post
-                        active
-                        clean={() => handleRemovePost(item)}
-                        typePage='postUser' 
-                        dataPostUser={item}
-                     />
 
-                    }
+                    <FlatList
+                        contentContainerStyle={{ padding: 24 }}
+                        showsVerticalScrollIndicator={false}
+                        data={post}
+                        keyExtractor={(item) => String(item.id)}
+                        renderItem={({ item }) =>
+
+                            <Post
+                                active
+                                clean={() => handleRemovePost(item)}
+                                User={users}
+                                typePage='postUser'
+                                dataPostUser={item}
+                            />
+
+                        }
+
                     />
-                    }
+                }
             </Main>
 
-            <ModalDeletPost 
-                visible={openModal} 
+            <ModalDeletPost
+                visible={openModal}
                 onClose={handleCloseModal}
                 removePost={deletePost}
             />

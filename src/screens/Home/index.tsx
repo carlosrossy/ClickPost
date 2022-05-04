@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 import HeaderPages from '../../components/HeaderPages';
@@ -7,56 +7,63 @@ import { Load } from '../../components/Load';
 import api from '../../services/api';
 import { PostDTO } from '../../dtos/postDTO';
 
-import { 
+import {
     Container,
     Main,
 } from './style';
 import { FlatList } from 'react-native';
+import { UserDTO } from '../../dtos/UserDTO';
 
 
-export function Home (){
+export function Home() {
     const [loading, setloading] = useState(false)
-    const [post,setPost] = useState<PostDTO[]>([])
-    
+    const [post, setPost] = useState<PostDTO[]>([])
+    const [users, setUsers] = useState<UserDTO[]>([]);
+
     useEffect(() => {
-        
         getPost()
     }, [])
-    async function getPost () {
+    async function getPost() {
         try {
-            setloading(true) 
+            setloading(true)
             const response = await api.get(`/posts`)
+            const responseUsers = await api.get('/users');
             setPost(response.data)
+            setUsers(responseUsers.data)
         } catch (error) {
-            
+
             console.log(error)
 
-        }finally{
+        } finally {
             setloading(false)
         }
     }
-    return(
+    return (
 
         <Container>
-            <HeaderPages title='Post'/>
+            <HeaderPages title='Post' />
 
             <Main>
-                { loading ? <Load/> :
+                {loading ? <Load /> :
 
-                 <FlatList
-                    contentContainerStyle={{padding: 24}}
-                    showsVerticalScrollIndicator= {false}
-                    data = {post}
-                    keyExtractor = {(item) => String(item.id)}
-                    renderItem = {({ item }) =>
-                    
-                    <Post typePage='home' data={item}/>
-            
-                    }
-                />
+                    <FlatList
+                        contentContainerStyle={{ padding: 24 }}
+                        showsVerticalScrollIndicator={false}
+                        data={post}
+                        keyExtractor={(item) => String(item.id)}
+                        renderItem={({ item }) =>
+
+                            <Post
+                                typePage='home'
+                                User={users}
+                                data={item}
+                            />
+
+                        }
+                    />
                 }
             </Main>
-            
+
         </Container>
     )
 }
