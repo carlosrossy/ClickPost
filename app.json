@@ -12,6 +12,14 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#0E1647"
+    },
+    "ios": {
+      "bundleIdentifier": "com.clickpost.carlos",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.clickpost.carlos",
+      "versionCode": 1
     }
   }
 }
